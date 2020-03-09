@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <button onclick="getHealthCheckReport()">Get HealthCheck Report</button>
+  <ul id="report"></ul>
+
+
+  <script src="/js/jquery.js"></script>
+  <script>
+    const server = "http://localhost:5000";
+
+    function getHealthCheckReport() {
+      console.log('Hello Healthcheck');
+
+      const result = [
+        {
+          service: 'msyql',
+          status: 'OK',
+          time: 199
+        },
+        {
+          service: 'redis',
+          status: 'CRIT',
+          time: 20
+        }
+      ];
+
+      const list = document.getElementById('report');
+
+      for(s of result) {
+        if(s.status === 'OK') {
+          
+        }else {
+          
+        }
+      }
+
+      /*
+      var message = document.getElementById("message"); //get message
+
+      io.emit("new message", message.value); //sending message to the server from client
+
+      return false; //this is to prevent the form from submitting 
+
+      $.ajax({
+        url: server + "/healthcheck",
+        method: "GET",
+        success: function(response) {
+          console.log(response);
+
+          //parse JSON to JS object and putting them into html document
+          var unorderedList = document.getElementById("messages");
+          var data = JSON.parse(response);
+          console.log(response);
+          
+          for(var a=0; a<data.length; a++) {
+
+            // displaying messages
+            var li = document.createElement("li");
+            li.innerHTML = data[a].message;
+            unorderedList.appendChild(li);
+          }
+        }
+      });
+      */
+    }
+
+  </script>
+</body>
+</html>
