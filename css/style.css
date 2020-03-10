@@ -1,0 +1,88 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: rgb(207, 207, 207);
+}
+
+h1 {
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 10%;
+  left: 50%;
+  padding: 15px;
+  margin: 15px;
+  border: 10px solid #333;
+  box-shadow: 0 3px 3px #777;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+h1:hover {
+  box-shadow: 0 10px 20px #777;
+}
+
+h1:active {
+  box-shadow: 0 5px 5px #777;
+}
+
+.report {
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  list-style: none;
+  font-size: 20px;
+}
+
+.report li {
+  margin: 5px;
+}
+
+.primary {
+  list-style: none;
+}
+
+.primary li {
+  width: 450px;
+  border: 3px solid rgb(0, 83, 0);
+  border-radius: 3px;
+  padding: 5px;
+  background-color: rgb(150, 231, 150);
+
+}
+
+.danger {
+  list-style: none;
+}
+
+.danger li {
+  width: 450px;
+  border: 3px solid rgb(138, 0, 0);
+  border-radius: 3px;
+  padding: 5px;
+  background-color: rgb(235, 150, 150);
+}
+
+.li-heading {
+  text-transform: uppercase;
+}
+
+.primary li:not(.li-heading):not(.counter), .danger li:not(.li-heading) {
+  padding-left: 50px;
+}
+
+.primary .counter {
+  margin-top: 25px;
+  border: 5px solid rgb(0, 49, 58);
+  background-color: rgb(140, 205, 207);
+  text-align: center;
+  font-size: 30px;
+}

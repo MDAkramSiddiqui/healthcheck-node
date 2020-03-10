@@ -5,50 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery.js"></script>
 </head>
 <body>
   
-  <button onclick="getHealthCheckReport()">Get HealthCheck Report</button>
-  <ul id="report"></ul>
+  <h1 onclick="getHealthCheckReport()">HealthCheck</h1>
+  <ul class="report"></ul>
 
 
-  <script src="/js/jquery.js"></script>
   <script>
     const server = "http://localhost:5000";
 
     function getHealthCheckReport() {
       console.log('Hello Healthcheck');
 
-      const result = [
-        {
-          service: 'msyql',
-          status: 'OK',
-          time: 199
-        },
-        {
-          service: 'redis',
-          status: 'CRIT',
-          time: 20
-        }
-      ];
+      // const result = [
+      //   {
+      //     service: 'msyql',
+      //     status: 'OK',
+      //     time: 199
+      //   },
+      //   {
+      //     service: 'redis',
+      //     status: 'CRIT',
+      //     time: 20
+      //   },
+      //   {
+      //     requestCounter: 125
+      //   }
+      // ];
 
-      const list = document.getElementById('report');
+      $.ajax({
+        url: server + "/healthcheck",
+        method: "GET",
+        success: function(response) {
+          console.log(response);
 
-      for(s of result) {
-        if(s.status === 'OK') {
-          
-        }else {
-          
+          //parse JSON to JS object and putting them into html document
+          var unorderedList = document.getElementById("messages");
+          // var result = JSON.parse(response);
+          var result = response;
+          console.log(response);
+
+          const list = document.querySelector('.report');
+          list.innerHTML = '';
+
+          for(s of result) {
+
+            if(s.status === 'OK') {
+              var li = document.createElement("li");
+              li.innerHTML = `
+              <ul class="primary">
+                <li class="li-heading">${s.service} </li>
+                <li>Status: ${s.status} </li>
+                <li>Message: ${s.message} </li>
+                <li>Time: ${s.time} ms</li>
+              </ul>
+              `;
+              list.appendChild(li);
+
+            }else if(s.status === 'CRIT') {
+              var li = document.createElement("li");
+              li.innerHTML = `
+              <ul class="danger">
+                <li class="li-heading">${s.service} </li>
+                <li>Status: ${s.status} </li>
+                <li>Message: ${s.message} </li>
+                <li>Time: ${s.time} ms</li>
+              </ul>
+              `;
+              list.appendChild(li);
+
+            }else {
+              var li = document.createElement("li");
+              li.innerHTML = `
+              <ul class="primary">
+                <li class="counter">Request: ${s.requestCounter} </li>
+              </ul>
+              `;
+              list.appendChild(li);
+            }
+          }
+
+
         }
-      }
+      });
+
+      
 
       /*
-      var message = document.getElementById("message"); //get message
-
-      io.emit("new message", message.value); //sending message to the server from client
-
-      return false; //this is to prevent the form from submitting 
-
       $.ajax({
         url: server + "/healthcheck",
         method: "GET",
