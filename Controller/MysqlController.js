@@ -10,24 +10,17 @@ class MysqlController {
   
   static async getAndUpdateCount(req,res) {
     try {
-      logger.debug(`${scriptName}, getAndUpdateCount()`);
-      let initialTime, finalTime;
-      initialTime = Date.now();
+      logger.info(`${scriptName}, getAndUpdateCount()`);
+      
       const mysqlStatus = await mysqlClient.getClientStatus();
-      finalTime = Date.now();
-      console.log(mysqlStatus);
-      mysqlStatus.time = (finalTime - initialTime);
-      initialTime = Date.now();
       const redisStatus = await redisClient.getClientStatus();
-      finalTime = Date.now();
-      redisStatus.time = (finalTime - initialTime);
-      // const requestCounter = await mysqlClient.updateCount();
+      const count = await mysqlClient.getCount();
       const requestCounter = {
-        requestCounter: 125
+        requestCounter: count
       };
+
       const temp = Object.assign({}, { mysqlStatus }, { redisStatus }, { requestCounter });
       const result = Object.keys(temp).map(i => temp[i]);
-      console.log(result);
       res.send(result);
     }catch(err) {
       logger.error(err);
