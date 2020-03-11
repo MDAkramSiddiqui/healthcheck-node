@@ -20,22 +20,6 @@
     function getHealthCheckReport() {
       console.log('Hello Healthcheck');
 
-      // const result = [
-      //   {
-      //     service: 'msyql',
-      //     status: 'OK',
-      //     time: 199
-      //   },
-      //   {
-      //     service: 'redis',
-      //     status: 'CRIT',
-      //     time: 20
-      //   },
-      //   {
-      //     requestCounter: 125
-      //   }
-      // ];
-
       $.ajax({
         url: server + "/healthcheck",
         method: "GET",
@@ -87,35 +71,9 @@
               list.appendChild(li);
             }
           }
-
-
         }
       });
 
-      
-
-      /*
-      $.ajax({
-        url: server + "/healthcheck",
-        method: "GET",
-        success: function(response) {
-          console.log(response);
-
-          //parse JSON to JS object and putting them into html document
-          var unorderedList = document.getElementById("messages");
-          var data = JSON.parse(response);
-          console.log(response);
-          
-          for(var a=0; a<data.length; a++) {
-
-            // displaying messages
-            var li = document.createElement("li");
-            li.innerHTML = data[a].message;
-            unorderedList.appendChild(li);
-          }
-        }
-      });
-      */
     }
 
   </script>
